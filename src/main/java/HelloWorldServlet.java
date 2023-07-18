@@ -11,9 +11,9 @@ import java.io.PrintWriter;
 public class HelloWorldServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        String name = (req.getParameter("name"));
         res.setContentType("text/html");
         PrintWriter out = res.getWriter();
-        out.println(String.format("Hello, %d", name));
+        String name = (req.getParameter("name"));
+        out.println(String.format("Hello, %s", name));
     }
 }
