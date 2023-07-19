@@ -22,7 +22,7 @@
 <h1>Welcome To The Site!</h1>
 
 
-<form method="post">
+<form method="post" action="login.jsp">
     <label for="username">Username:</label><br>
     <input type="text" id="username" name="username" required><br>
 
