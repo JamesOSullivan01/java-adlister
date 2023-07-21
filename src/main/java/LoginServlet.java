@@ -9,6 +9,11 @@ import java.io.IOException;
 
 public class LoginServlet extends HttpServlet {
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/login.jsp").forward(req, resp);
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
@@ -17,7 +22,7 @@ public class LoginServlet extends HttpServlet {
         if (username.equals("admin") && password.equals("password")) {
             response.sendRedirect("/profile");
         } else {
-            response.sendRedirect("/login.jsp");
+            response.sendRedirect("/login");
 
 
         }

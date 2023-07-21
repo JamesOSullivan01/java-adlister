@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: jamesosullivan
@@ -11,7 +12,15 @@
     <title>Ad Listings</title>
 </head>
 <body>
-<h1>Ad Listings</h1>
+    <h1>Ad Listings</h1>
+
+    <c:forEach var="ad" items="${ads}">
+        <div class="ad">
+            <h1>${ad.title}</h1>
+            <p>${ad.description}</p>
+        </div>
+
+    </c:forEach>
 
 
 
