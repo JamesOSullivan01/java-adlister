@@ -3,9 +3,8 @@ package dao;
 import com.mysql.cj.jdbc.Driver;
 import models.Ad;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MySQLAdsDao implements Ads {
@@ -31,12 +30,38 @@ public class MySQLAdsDao implements Ads {
     }
     @Override
     public List<Ad> all() {
-        return null;
+        List<Ad> ads = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM ads");
+            while (rs.next()) {
+                ads.add(new Ad(
+                        rs.getLong("id"),
+                        rs.getLong("user_id"),
+                        rs.getString("title"),
+                        rs.getString("description")
+                ));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return ads;
     }
 
     @Override
-    public Long insert(Ad ad) {
-        return null;
+    public long insert(Ad ad) {
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(String.format("INSERT INTO ads(title, description, user_id) VALUES ('%s', '%s','%d'", ad.getTitle()), Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getLong(1);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0L;
     }
 
 }
